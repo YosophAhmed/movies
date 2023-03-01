@@ -5,7 +5,8 @@ import 'package:movies/core/usecase/base_usecase.dart';
 import 'package:movies/modules/movies/domain/entities/movie_details.dart';
 import 'package:movies/modules/movies/domain/repository/movies_base_repository.dart';
 
-class GetMovieDetailsUseCase extends BaseUseCase<MovieDetails, MovieDetailsParameters> {
+class GetMovieDetailsUseCase
+    extends BaseUseCase<MovieDetails, MovieDetailsParameters> {
   final BaseMoviesRepository moviesRepository;
 
   GetMovieDetailsUseCase(
@@ -16,7 +17,9 @@ class GetMovieDetailsUseCase extends BaseUseCase<MovieDetails, MovieDetailsParam
   Future<Either<Failure, MovieDetails>> call(
     MovieDetailsParameters parameters,
   ) async {
-    return await moviesRepository.getMovieDetails();
+    return await moviesRepository.getMovieDetails(
+      parameters,
+    );
   }
 }
 
