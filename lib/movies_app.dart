@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/core/utils/app_strings.dart';
 import 'package:movies/modules/movies/presentation/screens/movies_screen.dart';
 
 class MoviesApp extends StatelessWidget {
@@ -8,6 +9,7 @@ class MoviesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: AppStrings.appName,
       theme: ThemeData(
         brightness: Brightness.dark,
       ),

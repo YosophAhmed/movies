@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/core/network/api_constants.dart';
+import 'package:movies/core/utils/app_strings.dart';
 import 'package:movies/core/utils/enums.dart';
 import 'package:movies/modules/movies/presentation/controller/movie_details_bloc.dart';
 import 'package:movies/modules/movies/presentation/controller/movie_details_state.dart';
@@ -12,7 +13,6 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../core/services/services_locator.dart';
 import '../../domain/entities/genres.dart';
 import '../controller/movie_details_event.dart';
-import 'dummy.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   final int id;
@@ -218,7 +218,7 @@ class MovieDetailContent extends StatelessWidget {
                             height: 8.0,
                           ),
                           Text(
-                            'Genres: ${_showGenres(state.movieDetails!.genres)}',
+                            '${AppStrings.genres}: ${_showGenres(state.movieDetails!.genres)}',
                             style: const TextStyle(
                               color: Colors.white70,
                               fontSize: 12.0,
@@ -244,9 +244,9 @@ class MovieDetailContent extends StatelessWidget {
                       duration: const Duration(
                         milliseconds: 500,
                       ),
-                      child: Text(
-                        'More like this'.toUpperCase(),
-                        style: const TextStyle(
+                      child: const Text(
+                        AppStrings.moreLikeThis,
+                        style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1.2,
@@ -307,7 +307,6 @@ class MovieDetailContent extends StatelessWidget {
       builder: (context, state) => SliverGrid(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
-            final recommendation = state.recommendations[index];
             return FadeInUp(
               from: 20,
               duration: const Duration(milliseconds: 500),
