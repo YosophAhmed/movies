@@ -10,7 +10,7 @@ class MovieDetails extends Equatable {
   final String releaseDate;
   final int runTime;
   final String title;
-  final String averageVote;
+  final double averageVote;
 
   const MovieDetails({
     required this.image,

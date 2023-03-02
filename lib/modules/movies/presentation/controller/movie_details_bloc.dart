@@ -1,17 +1,18 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/core/utils/enums.dart';
-import 'package:movies/modules/movies/domain/entities/movie_details.dart';
+import 'package:movies/modules/movies/presentation/controller/movie_details_event.dart';
+import 'package:movies/modules/movies/presentation/controller/movie_details_state.dart';
 
+import '../../../../core/utils/enums.dart';
 import '../../domain/usecases/get_movie_details_usecase.dart';
-
-part 'movie_details_event.dart';
-part 'movie_details_state.dart';
+import '../../domain/usecases/get_recommendations_usecase.dart';
 
 class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
   final GetMovieDetailsUseCase getMovieDetailsUseCase;
+  final GetRecommendationsUseCase getRecommendationsUseCase;
+
   MovieDetailsBloc(
     this.getMovieDetailsUseCase,
+    this.getRecommendationsUseCase,
   ) : super(
           const MovieDetailsState(),
         ) {
@@ -32,6 +33,28 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
           state.copyWith(
             movieDetails: r,
             movieDetailsState: RequestState.loaded,
+          ),
+        ),
+      );
+    });
+
+    on<GetRecommendationsEvent>((event, emit) async {
+      final result = await getRecommendationsUseCase(
+        RecommendationsParameters(
+          id: event.id,
+        ),
+      );
+      result.fold(
+        (l) => emit(
+          state.copyWith(
+            recommendationsState: RequestState.error,
+            recommendationsMessage: l.message,
+          ),
+        ),
+        (r) => emit(
+          state.copyWith(
+            recommendationsState: RequestState.loaded,
+            recommendations: r,
           ),
         ),
       );
